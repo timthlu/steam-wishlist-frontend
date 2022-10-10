@@ -9,7 +9,7 @@ function Header(props) {
     <AppBar position="static" sx={{ background: '#2a475e'}}>
       <Box sx={{padding: '100px', textAlign: 'center', background: '#171a21', color: 'white'}}>
         <Typography variant='h4'>
-          Steam Wish List
+          Steam Wishlist
         </Typography>
         <Typography variant='h6'>
           Homegrown with desktop notifications!
