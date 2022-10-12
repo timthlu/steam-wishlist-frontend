@@ -32,7 +32,7 @@ function AllGames(props) {
         {filteredGames.slice(0, loaded).map(game => 
           <ListItem key={game.appid}>
             <Typography>{game.name}</Typography>
-            <ListItemButton onClick={() => props.handleAddToWishlist(game)}>Add to Wishlist</ListItemButton>
+            <ListItemButton onClick={() => props.handleAddToWishlist(game.appid)}>Add to Wishlist</ListItemButton>
           </ListItem>
         )}
       </List>
