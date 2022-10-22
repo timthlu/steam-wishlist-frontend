@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 function AllGames(props) {
   const [loaded, setLoaded] = useState(10);
@@ -23,19 +24,30 @@ function AllGames(props) {
     setLoaded(10);
   }
   
-  const filteredGames = props.allGames.filter(game => game.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredGames = props.allGames.filter(game => game.name.toLowerCase().includes(search.toLowerCase()))
+    .filter(game => !props.wishlist.includes(game.appid));
 
   return (
     <div>
       <TextField id="standard-basic" label="Search for a game!" variant="standard" value={search} onChange={handleSearchChange}/>
-      <List>
-        {filteredGames.slice(0, loaded).map(game => 
-          <ListItem key={game.appid}>
-            <Typography>{game.name}</Typography>
-            <ListItemButton onClick={() => props.handleAddToWishlist(game.appid)}>Add to Wishlist</ListItemButton>
-          </ListItem>
-        )}
-      </List>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{fontWeight: 'bold'}}>Game</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredGames.slice(0, loaded).map(game => 
+            <TableRow>
+              <TableCell>{game.name}</TableCell>
+              <TableCell>
+                <Button onClick={() => props.handleAddToWishlist(game.appid)}>Add to Wishlist</Button>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
       { filteredGames.length - loaded > 0 ? <Button onClick={handleLoadMore}>{filteredGames.length - loaded} more...</Button>
       : <div></div>
       }
